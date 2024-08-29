@@ -8,8 +8,8 @@ load_dotenv()
 app = FastAPI()
 
 
-API_KEY = open('API_KEY').read().strip()
-SEARCH_ENGINE_ID = open('SEARCH_ENGINE_ID').read().strip()
+API_KEY = os.getenv('API_KEY')
+SEARCH_ENGINE_ID = os.getenv('SEARCH_ENGINE_ID')
 
 
 def get_company_detail(company_name, location):
@@ -21,8 +21,8 @@ def get_company_detail(company_name, location):
 
     params = {
         'q': search_query,
-        'key': os.getenv('API_KEY'),
-        'cx': os.getenv('SEARCH_ENGINE_ID')
+        'key': API_KEY,
+        'cx': SEARCH_ENGINE_ID
     }
 
     response = requests.get(url, params=params)
