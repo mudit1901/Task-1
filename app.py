@@ -12,9 +12,9 @@ API_KEY = os.getenv('API_KEY')
 SEARCH_ENGINE_ID = os.getenv('SEARCH_ENGINE_ID')
 
 
-def get_company_detail(company_name, location):
+def get_company_detail(company_name, location, extra_commands):
 
-    search_query = f"{company_name} {location}"
+    search_query = f"{company_name} {location} {extra_commands}"
 
     # Google API
     url = 'https://www.googleapis.com/customsearch/v1'
@@ -43,7 +43,8 @@ def get_company_detail(company_name, location):
 @app.get("/search-company/")
 def search_company(
     company_name: str = Query("Evolvision Technologies"),
-    location: str = Query("Gandhinagar")
+    location: str = Query("Gandhinagar"),
+    extra: str = Query("Software Company")
 ):
-    search_results = get_company_detail(company_name, location)
+    search_results = get_company_detail(company_name, location, extra)
     return search_results
